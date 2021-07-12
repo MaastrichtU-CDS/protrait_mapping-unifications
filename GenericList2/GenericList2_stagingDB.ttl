@@ -345,6 +345,7 @@ map:patient rr:predicateObjectMap [
 map:smokingStatusQuery a rr:LogicalTable;
     rr:sqlQuery """SELECT 
     gen_idnumber as id, 
+    gen_smoking_id,
     gen_smoking, 
     gen_sm_packyears, 
     gen_sm_stopmonths 
@@ -355,7 +356,7 @@ map:smokingStatusQuery a rr:LogicalTable;
 map:smokingStatus a rr:TriplesMap;
     rr:logicalTable map:smokingStatusQuery;    
     rr:subjectMap [
-        rr:template "patient/{id}/smokingStatus/{gen_smoking}";
+        rr:template "patient/{id}/gen_smoking_id/{gen_smoking_id}/smokingStatus/{gen_smoking}";
         rr:class ncit:C19796; #smoking status
     ];
     rr:predicateObjectMap [
@@ -370,8 +371,8 @@ map:smokingStatus a rr:TriplesMap;
         rr:objectMap [
             rr:parentTriplesMap map:formerSmoker;
             rr:joinCondition [
-                rr:child "id";
-                rr:parent "id";
+                rr:child "gen_smoking_id";
+                rr:parent "gen_smoking_id";
             ];
         ];
     ];
@@ -380,8 +381,8 @@ map:smokingStatus a rr:TriplesMap;
         rr:objectMap [
             rr:parentTriplesMap map:currentSmoker;
             rr:joinCondition [
-                rr:child "id";
-                rr:parent "id";
+                rr:child "gen_smoking_id";
+                rr:parent "gen_smoking_id";
             ];
         ];
     ].
@@ -389,7 +390,7 @@ map:smokingStatus a rr:TriplesMap;
 map:formerSmoker a rr:TriplesMap;
     rr:logicalTable map:smokingStatusQuery;    
     rr:subjectMap [
-        rr:template "patient/{id}/smokingStatus/formerSmoker/{gen_sm_packyears}";
+        rr:template "patient/{id}/gen_smoking_id/{gen_smoking_id}/smokingStatus/formerSmoker/{gen_sm_packyears}";
         rr:class ncit:C67148; #former smoker
     ];
     rr:predicateObjectMap [
@@ -404,8 +405,8 @@ map:formerSmoker a rr:TriplesMap;
         rr:objectMap [
             rr:parentTriplesMap map:packYears;                                      
             rr:joinCondition [ 
-                rr:child "id";
-                rr:parent "id";
+                rr:child "gen_smoking_id";
+                rr:parent "gen_smoking_id";
             ];
         ];
     ];
@@ -414,8 +415,8 @@ map:formerSmoker a rr:TriplesMap;
         rr:objectMap [
             rr:parentTriplesMap map:timeStoppedSmoking;
             rr:joinCondition [
-                rr:child "id";
-                rr:parent "id";
+                rr:child "gen_smoking_id";
+                rr:parent "gen_smoking_id";
             ];
         ];
     ].
@@ -423,7 +424,7 @@ map:formerSmoker a rr:TriplesMap;
 map:timeStoppedSmoking a rr:TriplesMap;
     rr:logicalTable map:smokingStatusQuery;    
     rr:subjectMap [
-        rr:template "patient/{id}/smokingStatus/formerSmoker/timeStoppedSmoking/{gen_sm_stopmonths}";
+        rr:template "patient/{id}/gen_smoking_id/{gen_smoking_id}/smokingStatus/formerSmoker/timeStoppedSmoking/{gen_sm_stopmonths}";
         rr:class roo:timeStoppedSmoking;
     ];
     rr:predicateObjectMap [
@@ -438,8 +439,8 @@ map:timeStoppedSmoking a rr:TriplesMap;
         rr:objectMap [
             rr:parentTriplesMap map:month;
             rr:joinCondition [
-                rr:child "id"; 
-                rr:parent "id";
+                rr:child "gen_smoking_id"; 
+                rr:parent "gen_smoking_id";
             ];
         ];
     ].
@@ -447,7 +448,7 @@ map:timeStoppedSmoking a rr:TriplesMap;
 map:currentSmoker a rr:TriplesMap;
     rr:logicalTable map:smokingStatusQuery;    
     rr:subjectMap [
-        rr:template "patient/{id}/smokingStatus/currentSmoker/{gen_sm_packyears}";
+        rr:template "patient/{id}/gen_smoking_id/{gen_smoking_id}/smokingStatus/currentSmoker/{gen_sm_packyears}";
         rr:class ncit:C67147;
     ];
     rr:predicateObjectMap [
@@ -462,8 +463,8 @@ map:currentSmoker a rr:TriplesMap;
         rr:objectMap [
             rr:parentTriplesMap map:packYears;
             rr:joinCondition [
-                rr:child "id";      
-                rr:parent "id";
+                rr:child "gen_smoking_id";      
+                rr:parent "gen_smoking_id";
             ];
         ];
     ].
@@ -471,14 +472,14 @@ map:currentSmoker a rr:TriplesMap;
 map:packYears a rr:TriplesMap;
     rr:logicalTable map:smokingStatusQuery;    
     rr:subjectMap [
-        rr:template "patient/{id}/packyears";
+        rr:template "patient/packyears";
         rr:class ncit:C73993; #pack year
     ].
 
 map:month a rr:TriplesMap;
     rr:logicalTable map:smokingStatusQuery;    
     rr:subjectMap [
-        rr:template "patient/{id}/month";             
+        rr:template "patient/month";             
         rr:class uo:0000035; #month
     ].
 
@@ -487,8 +488,8 @@ map:patient rr:predicateObjectMap [
         rr:objectMap [
             rr:parentTriplesMap map:smokingStatus;
             rr:joinCondition [
-                rr:child "id";
-                rr:parent "id";
+                rr:child "gen_smoking_id";
+                rr:parent "gen_smoking_id";
             ];
         ];
     ].
@@ -498,7 +499,8 @@ map:patient rr:predicateObjectMap [
 ########################################### 
 map:alcoholUseHistoryQuery a rr:LogicalTable;
     rr:sqlQuery """SELECT 
-    gen_idnumber as id, 
+    gen_idnumber as id,
+    gen_alcohol_id, 
     gen_alcohol, 
     gen_alcohol_days, 
     gen_alcohol_glass 
