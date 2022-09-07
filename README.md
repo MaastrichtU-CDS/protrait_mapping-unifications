@@ -1,3 +1,4 @@
+**Repository location moved! Please check [https://github.com/MaastrichtU-CDS/protrait_mapping-unifications](https://github.com/MaastrichtU-CDS/protrait_mapping-unifications)**
 # R2RML mappings repository
 
 This repository contains the R2RML mapping files created specifically for the proTRAIT postgres staging database. 
