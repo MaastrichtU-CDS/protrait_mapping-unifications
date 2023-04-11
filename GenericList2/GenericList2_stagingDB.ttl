@@ -127,7 +127,7 @@ map:referringCentre a rr:TriplesMap;
     rr:logicalTable map:treatingCentreQuery;
     rr:subjectMap [
         rr:template "patient/{id}/registration/{gen_refer_center}";
-        rr:class ncit:C19326; #clinics and hospitals 
+        rr:class roo:referralCentre; #clinics and hospitals 
     ];
     rr:predicateObjectMap [
         rr:predicate roo:P100042; #has_value
