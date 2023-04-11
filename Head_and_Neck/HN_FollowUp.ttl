@@ -73,7 +73,9 @@ map:radiationInducedSideEffectsQuery a rr:LogicalTable;
     HN_TOX_DYSPH as dysphagia,
     HN_TOX_DYSPH_UMCG as dysphagiaUMCG,
     HN_TOX_MUCOSITIS as oralMucositis,
-    HN_TOX_DERMATITIS as dermatitisRadiation
+    HN_TOX_DERMATITIS as dermatitisRadiation,
+    HN_TOX_OSTEORADION as osteoRadioNecrosis,
+    HN_TOX_SOFTNECR as softTissueNecrosis
         FROM hn_data;""";
     rdfs:label "";
     skos:definition "".
@@ -152,6 +154,26 @@ map:radiationInducedSideEffects a rr:TriplesMap;
                 rr:child "id";
                 rr:parent "id";
             ];                                                        
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate roo:P100423; #consists_of
+        rr:objectMap [
+            rr:parentTriplesMap map:osteoRadioNecrosis;    
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "id";
+            ];                                                     
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate roo:P100423; #consists_of
+        rr:objectMap [
+            rr:parentTriplesMap map:softTissueNecrosis;   
+            rr:joinCondition [
+                rr:child "id";
+                rr:parent "id";
+            ];                                                      
         ];
     ].
 
@@ -287,7 +309,6 @@ map:radiotherapy rr:predicateObjectMap [
 map:radiotherapyQuery a rr:LogicalTable;
     rr:sqlQuery """SELECT 
     GEN_IDNUMBER as id, 
-    HN_TOX_DOSE_SO_FAR as doseSoFar,
     HN_TIMEPOINT as timepoint
         FROM hn_data;""";
     rdfs:label "";
@@ -300,16 +321,6 @@ map:radiotherapy a rr:TriplesMap;
         rr:class ncit:C15313; #radiation therapy
     ];
     rr:predicateObjectMap [
-        rr:predicate roo:has_subtype; #new roo predicate  
-        rr:objectMap [
-            rr:parentTriplesMap map:doseSoFar;
-            rr:joinCondition [
-                rr:child "id";
-                rr:parent "id";
-            ];
-        ];
-    ];
-    rr:predicateObjectMap [
         rr:predicate roo:P100042; #has_value
         rr:objectMap [
             rr:parentTriplesMap map:timePoint;
@@ -317,20 +328,6 @@ map:radiotherapy a rr:TriplesMap;
                 rr:child "id";
                 rr:parent "id";
             ];
-        ];
-    ].
-
-map:doseSoFar a rr:TriplesMap;
-    rr:logicalTable map:radiotherapyQuery; 
-    rr:subjectMap [
-        rr:template "patient/{id}/cancerTreatment/radiotherapy/doseSoFar/{doseSoFar}";
-        rr:class roo:doseSoFar; #new roo class
-    ];
-    rr:predicateObjectMap [
-        rr:predicate roo:P100042; #has_value
-        rr:objectMap [
-            rr:column "doseSoFar"; 
-            rr:datatype xsd:integer;
         ];
     ].
 
